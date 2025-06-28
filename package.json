@@ -1,6 +1,10 @@
 {
   "name": "monorepo",
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "example"
+  ],
   "engines": {
     "node": ">=18.16.1"
   },
