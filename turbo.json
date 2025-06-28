@@ -17,9 +17,6 @@
     "clean": {
       "cache": false
     },
-    "//#clean": {
-      "cache": false
-    },
     "type-check": {
       "dependsOn": ["build"],
       "cache": false
