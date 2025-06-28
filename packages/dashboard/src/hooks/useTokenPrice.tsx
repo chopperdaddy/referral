@@ -58,14 +58,15 @@ export const useGetTokenPrice = (mint: string) => {
   }, [queryClient, mint]);
 
   const price = useMemo(() => {
-    const prices = queryClient.getQueryData<PriceAPIResult>(
-      [TOKEN_PRICES_KEY],
-      {
-        exact: false,
-        queryKey: [mint],
-      },
-    ) as PriceAPIResult["data"] | undefined;
+    // Find any cached query data that contains this mint
+    const allQueries = queryClient.getQueryCache().findAll([TOKEN_PRICES_KEY]);
+    const relevantQuery = allQueries.find((query) =>
+      query.queryKey.includes(mint),
+    );
 
+    const prices = relevantQuery?.state.data as
+      | PriceAPIResult["data"]
+      | undefined;
     return prices?.[mint]?.price;
   }, [queryClient, mint, _]);
 
@@ -101,13 +102,17 @@ export const useGetTokenPrices = (mints: string[]) => {
 
   const pricesHash = useMemo(() => {
     return mints.reduce((acc, mint) => {
-      const prices = queryClient.getQueryData<PriceAPIResult>(
-        [TOKEN_PRICES_KEY],
-        {
-          exact: false,
-          queryKey: [mint],
-        },
-      ) as PriceAPIResult["data"] | undefined;
+      // Find any cached query data that contains this mint
+      const allQueries = queryClient
+        .getQueryCache()
+        .findAll([TOKEN_PRICES_KEY]);
+      const relevantQuery = allQueries.find((query) =>
+        query.queryKey.includes(mint),
+      );
+
+      const prices = relevantQuery?.state.data as
+        | PriceAPIResult["data"]
+        | undefined;
       return { ...acc, ...(prices || {}) };
     }, {} as PriceAPIResult["data"]);
   }, [queryClient, mints]);

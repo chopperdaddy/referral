@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build --workspace=@jup-ag/referral-sdk && npm run build --workspace=dashboard",
   "installCommand": "npm install",
   "framework": null,
   "outputDirectory": "packages/dashboard/.next"
