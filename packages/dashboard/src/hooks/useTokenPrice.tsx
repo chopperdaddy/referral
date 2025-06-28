@@ -23,7 +23,9 @@ export const useFetchTokenPrices = (tokenMints: string[]) => {
         queryKey: [TOKEN_PRICES_KEY, ...tokens],
         queryFn: async () => {
           const response = await fetch(
-            `https://api.jup.ag/price/v2?ids=${tokens.join(",")}`,
+            `https://jupiter-swap-api.quiknode.pro/86224A516F95/price?ids=${tokens.join(
+              ",",
+            )}`,
           );
           const data: PriceAPIResult = await response.json();
           return data.data;
