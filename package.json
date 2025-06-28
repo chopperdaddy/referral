@@ -2,8 +2,7 @@
   "name": "monorepo",
   "private": true,
   "engines": {
-    "node": ">=18.16.1",
-    "pnpm": ">=8.6.6"
+    "node": ">=18.16.1"
   },
   "packageManager": "pnpm@8.6.6",
   "scripts": {
